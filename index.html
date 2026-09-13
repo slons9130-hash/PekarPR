@@ -114,6 +114,7 @@ h2 em{font-style:normal;color:var(--acc)}
 .who{display:flex;align-items:center;gap:.8rem;margin-top:1.4rem}
 .ava{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.9rem;flex-shrink:0}
 .who b{display:block;font-size:.9rem}.who span{color:var(--mut);font-size:.76rem}
+.revs-disclaimer{display:block;margin-top:1.4rem;font-size:.78rem;color:var(--mut)}
 .contact{background:var(--ink);color:var(--bg);border-radius:28px;margin:0 clamp(.8rem,3vw,3rem) 3rem;padding:clamp(3rem,7vw,6rem);text-align:center;position:relative;z-index:2}
 .contact h2{color:var(--bg)}.contact h2 em{color:var(--acc)}
 .contact p{color:rgba(247,241,230,.65);max-width:44ch;margin:1.2rem auto 2.2rem}
@@ -121,10 +122,43 @@ h2 em{font-style:normal;color:var(--acc)}
 .hours{display:flex;justify-content:center;gap:3rem;margin-top:2.6rem;flex-wrap:wrap;color:rgba(247,241,230,.6);font-size:.9rem}
 .hours b{display:block;color:var(--bg);font-family:var(--fd);font-size:1.05rem}
 footer{padding:2rem;text-align:center;color:var(--mut);font-size:.85rem;position:relative;z-index:2}
+.footer-legal{display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem 1.4rem;margin-bottom:1rem}
+.footer-legal button{background:none;border:none;padding:0;color:var(--mut);font-family:var(--fb);font-size:.82rem;text-decoration:underline;text-underline-offset:3px;cursor:pointer;transition:color .3s}
+.footer-legal button:hover{color:var(--acc2)}
+.footer-company{color:var(--mut);opacity:.8;font-size:.74rem;margin-top:.6rem;line-height:1.7}
 .rv{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
 .rv.in{opacity:1;transform:none}
+
+/* COOKIE BANNER */
+.cookie-bar{position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:10050;max-width:760px;margin:0 auto;background:var(--card);border:2px solid var(--ink);border-radius:20px;padding:1.6rem 1.8rem;box-shadow:0 24px 60px rgba(51,36,26,.35);display:flex;flex-direction:column;gap:1rem;transform:translateY(140%);opacity:0;transition:transform .6s var(--ease),opacity .6s var(--ease)}
+.cookie-bar.visible{transform:translateY(0);opacity:1}
+.cookie-bar p{font-size:.86rem;color:var(--mut);line-height:1.7}
+.cookie-bar a{color:var(--acc2);text-decoration:underline;text-underline-offset:3px}
+.cookie-actions{display:flex;flex-wrap:wrap;gap:.7rem}
+.cookie-actions .btn{padding:.75rem 1.5rem;font-size:.72rem}
+.cookie-settings-panel{display:none;flex-direction:column;gap:.7rem;border-top:2px dashed var(--line);padding-top:1rem;margin-top:.2rem}
+.cookie-settings-panel.open{display:flex}
+.cookie-row{display:flex;justify-content:space-between;align-items:center;gap:1rem;font-size:.82rem;color:var(--mut)}
+.cookie-row b{color:var(--ink);font-weight:700}
+.cookie-toggle{position:relative;width:42px;height:24px;border-radius:999px;background:rgba(51,36,26,.16);border:none;cursor:pointer;flex-shrink:0;transition:background .3s}
+.cookie-toggle::after{content:'';position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .3s}
+.cookie-toggle.on{background:var(--acc2)}
+.cookie-toggle.on::after{transform:translateX(18px)}
+.cookie-toggle:disabled{opacity:.6;cursor:not-allowed}
+
+/* LEGAL MODALS */
+.legal-modal{position:fixed;inset:0;z-index:10100;display:none;align-items:flex-start;justify-content:center;padding:5vh 1rem;background:rgba(51,36,26,.55);backdrop-filter:blur(4px);overflow-y:auto}
+.legal-modal.open{display:flex}
+.legal-modal-box{background:var(--card);border:2px solid var(--ink);border-radius:22px;max-width:720px;width:100%;padding:2.6rem;box-shadow:0 40px 90px rgba(51,36,26,.35);margin-bottom:5vh}
+.legal-modal-box h2{font-family:var(--fd);font-size:1.7rem;margin-bottom:1.2rem;color:var(--ink)}
+.legal-modal-box h4{font-family:var(--fb);font-weight:800;font-size:.85rem;letter-spacing:.06em;color:var(--acc2);margin:1.3rem 0 .4rem;text-transform:uppercase}
+.legal-modal-box p,.legal-modal-box li{color:var(--mut);font-size:.9rem;line-height:1.8}
+.legal-modal-box ul{padding-left:1.3rem;margin:.3rem 0}
+.legal-modal-box mark{background:rgba(200,139,58,.28);color:var(--acc2);padding:.05em .3em;border-radius:4px;font-style:normal}
+.legal-close{margin-top:1.8rem}
+
 @media(max-width:960px){.hero{grid-template-columns:1fr;padding-top:7rem}.cards3d{height:360px;max-width:420px;margin:0 auto}.prod,.revs{grid-template-columns:repeat(2,1fr)}.about{grid-template-columns:1fr}.nav ul{display:none}.row{grid-template-columns:90px 1fr}.row span{grid-column:2}.stamp{right:-18px;bottom:-18px;width:88px;height:88px}}
-@media(max-width:560px){.prod,.revs{grid-template-columns:1fr}.stamp{right:-10px;bottom:-10px;width:76px;height:76px}}
+@media(max-width:560px){.prod,.revs{grid-template-columns:1fr}.stamp{right:-10px;bottom:-10px;width:76px;height:76px}.cookie-bar{left:.6rem;right:.6rem;bottom:.6rem;padding:1.3rem}.legal-modal-box{padding:1.8rem}}
 @media(max-width:900px){.flo-art{display:none}}
 @media(max-width:768px){body{cursor:auto}.ring,.dot,.trail{display:none}#dust{opacity:.35}.mband{transform:rotate(-2deg)}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
@@ -216,15 +250,101 @@ footer{padding:2rem;text-align:center;color:var(--mut);font-size:.85rem;position
   <div class="rev rv"><div class="stars">★★★★★</div><p>«Заквасочный — лучший в городе. Живу ради вторничной партии».</p><div class="who"><div class="ava">П</div><div><b>Павел</b><span>по вторникам</span></div></div></div>
   <div class="rev rv"><div class="stars">★★★★★</div><p>«Круассаны с миндалём — причина опозданий на работу».</p><div class="who"><div class="ava">Н</div><div><b>Настя</b><span>каждое утро</span></div></div></div>
   <div class="rev rv"><div class="stars">★★★★★</div><p>«Берём оптом для кофейни. Гости спрашивают, чей хлеб».</p><div class="who"><div class="ava">К</div><div><b>Кофейня «Пар»</b><span>оптовик</span></div></div></div>
- </div></div></section>
+ </div>
+ <span class="revs-disclaimer" data-i18n-skip>⚠ Это демонстрационные отзывы-заглушки. Перед публикацией замените их реальными отзывами клиентов (с их согласия на публикацию имени/текста) и актуальным рейтингом — иначе это нарушение правил рекламы (недостоверные отзывы).</span>
+ </div></section>
 
-<section class="contact rv" id="contact"><h2>Заходите на <em>тёплый</em> багет</h2><p>Ул. Пекарская, 3 · каждое утро с 07:00 · оптовикам — отдельные условия</p><a class="btn btn-warm" href="https://t.me" target="_blank" rel="noopener">Написать в Telegram</a>
+<section class="contact rv" id="contact"><h2>Заходите на <em>тёплый</em> багет</h2><p>Ул. Пекарская, 3 · каждое утро с 07:00 · оптовикам — отдельные условия</p><a class="btn btn-warm" href="https://t.me" target="_blank" rel="noopener noreferrer">Написать в Telegram</a>
 <div class="hours"><div><b>ПН–СБ</b>07:00 — 21:00</div><div><b>ВС</b>08:00 — 20:00</div><div><b>Опт</b>с 06:00</div></div></section>
-<footer>© 2026 Пекарня «КОРКА» · испечено с любовью</footer>
+
+<footer>
+  <div class="footer-legal">
+    <button type="button" data-legal="privacy">Политика конфиденциальности</button>
+    <button type="button" data-legal="terms">Условия использования</button>
+    <button type="button" data-legal="cookies">Политика cookie</button>
+    <button type="button" data-legal="refund">Возврат и качество</button>
+    <button type="button" id="cookieReopen">Настройки cookie</button>
+  </div>
+  <p>© 2026 Пекарня «КОРКА» · испечено с любовью</p>
+  <p class="footer-company">[Юр. наименование, напр. ИП «Иванова» / ООО «Корка»] · [юридический адрес, если отличается от адреса точки] · ОГРНИП/ОГРН: [укажите] · contact@korka.example · [телефон]</p>
+</footer>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-bar" id="cookieBar" role="dialog" aria-live="polite" aria-label="Настройки cookie">
+  <p>Мы используем только технически необходимые файлы для работы сайта. Шрифты подключаются от Google Fonts, фотографии — с Unsplash, а кнопка связи ведёт в Telegram: это сторонние сервисы со своими политиками. Аналитические и рекламные cookie не устанавливаются без вашего согласия. Подробнее — в <a href="#" data-legal="cookies">Политике cookie</a>.</p>
+  <div class="cookie-settings-panel" id="cookieSettingsPanel">
+    <div class="cookie-row"><span><b>Необходимые</b><br>Всегда активны — обеспечивают базовую работу сайта.</span><button class="cookie-toggle on" disabled></button></div>
+    <div class="cookie-row"><span><b>Аналитика</b><br>Сейчас не используется на сайте. Переключатель зарезервирован на будущее.</span><button class="cookie-toggle" id="toggleAnalytics" data-key="analytics"></button></div>
+  </div>
+  <div class="cookie-actions">
+    <button type="button" class="btn btn-warm" id="cookieAcceptAll">Принять всё</button>
+    <button type="button" class="btn btn-out" id="cookieRejectAll">Только необходимые</button>
+    <button type="button" class="btn btn-out" id="cookieCustomize">Настроить</button>
+  </div>
+</div>
+
+<!-- LEGAL MODALS -->
+<div class="legal-modal" id="modalPrivacy">
+  <div class="legal-modal-box">
+    <h2>Политика конфиденциальности</h2>
+    <p>Настоящая Политика описывает, какие данные собирает сайт пекарни «КОРКА» (далее — «Сайт»). <mark>Заполните разделы ниже реальными данными вашей компании и юрисдикции перед публикацией.</mark></p>
+    <h4>Какие данные собираются</h4>
+    <ul>
+      <li>Сайт в текущей версии не содержит форм сбора персональных данных — только ссылка на Telegram для связи. Переписка в Telegram регулируется политикой конфиденциальности Telegram.</li>
+      <li>Технически необходимые данные браузера (User-Agent, IP) могут передаваться сторонним сервисам при загрузке шрифтов (Google Fonts) и изображений (Unsplash).</li>
+    </ul>
+    <h4>Сторонние сервисы</h4>
+    <p>Google Fonts, Unsplash (шрифты и изображения), Telegram (внешняя ссылка для связи).</p>
+    <h4>Ваши права</h4>
+    <p>[Укажите права субъектов данных согласно применимому законодательству — например, GDPR (ЕС) или закону о персональных данных вашей страны] и контакт для обращений: [email оператора данных].</p>
+    <button type="button" class="btn btn-out legal-close" data-close>Закрыть</button>
+  </div>
+</div>
+
+<div class="legal-modal" id="modalTerms">
+  <div class="legal-modal-box">
+    <h2>Условия использования</h2>
+    <p>Используя Сайт, вы соглашаетесь с настоящими условиями. <mark>Замените текст ниже реальными условиями вашей пекарни.</mark></p>
+    <h4>Цены и наличие</h4>
+    <p>Цены на выпечку и время готовности указаны справочно и могут меняться в зависимости от партии, сезона и наличия ингредиентов. Актуальную информацию уточняйте в точке продаж.</p>
+    <h4>Отзывы и рейтинг</h4>
+    <p>Отзывы, опубликованные на Сайте, отражают собственный опыт авторов и публикуются с их согласия. [Замените демонстрационные отзывы на реальные перед запуском.]</p>
+    <h4>Применимое право</h4>
+    <p>[Укажите страну и применимое право/юрисдикцию, а также порядок разрешения споров.]</p>
+    <button type="button" class="btn btn-out legal-close" data-close>Закрыть</button>
+  </div>
+</div>
+
+<div class="legal-modal" id="modalCookies">
+  <div class="legal-modal-box">
+    <h2>Политика cookie</h2>
+    <p>Сайт использует минимальный набор технически необходимых элементов для отображения контента. Собственные аналитические или рекламные cookie на данный момент не устанавливаются.</p>
+    <h4>Сторонняя загрузка ресурсов</h4>
+    <p>При открытии Сайта браузер обращается к серверам Google (шрифты) и Unsplash (изображения) — это может означать передачу IP-адреса указанным сервисам согласно их собственным политикам.</p>
+    <h4>Управление</h4>
+    <p>Вы можете изменить решение в любой момент через кнопку «Настройки cookie» в футере сайта.</p>
+    <button type="button" class="btn btn-out legal-close" data-close>Закрыть</button>
+  </div>
+</div>
+
+<div class="legal-modal" id="modalRefund">
+  <div class="legal-modal-box">
+    <h2>Возврат и качество</h2>
+    <p><mark>Заполните реальными условиями вашей пекарни перед публикацией.</mark> Пример структуры ниже — с учётом того, что выпечка является скоропортящимся товаром.</p>
+    <h4>Претензии по качеству</h4>
+    <ul>
+      <li>Если товар не соответствует заявленному качеству (брак, посторонние примеси, явное несоответствие описанию), обратитесь в течение [N часов/дней] с чеком или фото товара.</li>
+      <li>Подтверждённый брак: замена товара или возврат денежных средств — на усмотрение пекарни, если иное не требует применимое законодательство о защите прав потребителей.</li>
+    </ul>
+    <h4>Особенности скоропортящегося товара</h4>
+    <p>В связи с ограниченным сроком годности выпечки возврат по причине «передумал» невозможен; рассматриваются только случаи ненадлежащего качества.</p>
+    <button type="button" class="btn btn-out legal-close" data-close>Закрыть</button>
+  </div>
+</div>
 
 <script>
 (function(){var $=function(s){return document.querySelector(s)},$$=function(s){return Array.prototype.slice.call(document.querySelectorAll(s))};var fine=matchMedia('(pointer:fine)').matches,red=matchMedia('(prefers-reduced-motion: reduce)').matches;
-setTimeout(function(){var p=$('#pre');p&&p.classList.add('hide')},1100);
+setTimeout(function(){var p=$('#pre');p&&p.classList.add('hide');maybeShowCookieBar();},1100);
 $$('[data-split]').forEach(function(el){var t=el.textContent;el.textContent='';Array.from(t).forEach(function(c,i){var s=document.createElement('span');s.className='ch';s.style.setProperty('--d',i);s.textContent=c===' '?'\u00A0':c;el.appendChild(s);});});
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.14});$$('.rv').forEach(function(el){io.observe(el);});
 var co=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var el=e.target,end=parseFloat(el.dataset.count),suf=el.dataset.suf||'',t0=performance.now();(function st(n){var p=Math.min((n-t0)/1500,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)))+suf;if(p<1)requestAnimationFrame(st);})(t0);co.unobserve(el);}});},{threshold:.5});$$('[data-count]').forEach(function(el){co.observe(el);});
@@ -241,7 +361,32 @@ addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;});
 $$('a,button,.tilt').forEach(function(el){el.addEventListener('mouseenter',function(){ring&&ring.classList.add('hov');});el.addEventListener('mouseleave',function(){ring&&ring.classList.remove('hov');});});
 $$('.btn').forEach(function(b){b.addEventListener('mousemove',function(e){var r=b.getBoundingClientRect();b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.22)+'px,'+((e.clientY-r.top-r.height/2)*.3)+'px)';});b.addEventListener('mouseleave',function(){b.style.transform='';});});
 $$('.tilt').forEach(function(c){c.addEventListener('mousemove',function(e){var r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;c.style.transform='perspective(900px) rotateX('+(-py*7)+'deg) rotateY('+(px*7)+'deg) translateY(-8px)';});c.addEventListener('mouseleave',function(){c.style.transform='';});});}
-$$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}});});})();
+$$('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){var t=document.querySelector(a.getAttribute('href'));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}});});
+
+/* ============ COOKIE CONSENT ============ */
+var COOKIE_KEY='korka_cookie_consent_v1';
+var cookieBar=$('#cookieBar'),cookieSettingsPanel=$('#cookieSettingsPanel'),toggleAnalytics=$('#toggleAnalytics');
+function getConsent(){try{return JSON.parse(localStorage.getItem(COOKIE_KEY));}catch(e){return null;}}
+function setConsent(o){try{localStorage.setItem(COOKIE_KEY,JSON.stringify(o));}catch(e){}applyConsent(o);}
+function applyConsent(o){
+  // Точка расширения: если подключите аналитику (GA/Meta Pixel и т.п.),
+  // инициализируйте её здесь ТОЛЬКО при o.analytics === true.
+  window.__korkaConsent=o;
+}
+function maybeShowCookieBar(){var c=getConsent();if(c){applyConsent(c);return;}cookieBar.classList.add('visible');}
+$('#cookieAcceptAll').addEventListener('click',function(){toggleAnalytics.classList.add('on');setConsent({necessary:true,analytics:true,ts:Date.now()});cookieBar.classList.remove('visible');});
+$('#cookieRejectAll').addEventListener('click',function(){toggleAnalytics.classList.remove('on');setConsent({necessary:true,analytics:false,ts:Date.now()});cookieBar.classList.remove('visible');});
+$('#cookieCustomize').addEventListener('click',function(){cookieSettingsPanel.classList.toggle('open');});
+toggleAnalytics.addEventListener('click',function(){var on=!toggleAnalytics.classList.contains('on');toggleAnalytics.classList.toggle('on',on);setConsent({necessary:true,analytics:on,ts:Date.now()});});
+$('#cookieReopen').addEventListener('click',function(){cookieBar.classList.add('visible');cookieSettingsPanel.classList.add('open');var c=getConsent();if(c&&c.analytics)toggleAnalytics.classList.add('on');});
+
+/* ============ LEGAL MODALS ============ */
+var legalMap={privacy:'modalPrivacy',terms:'modalTerms',cookies:'modalCookies',refund:'modalRefund'};
+$$('[data-legal]').forEach(function(el){el.addEventListener('click',function(e){e.preventDefault();var id=legalMap[el.getAttribute('data-legal')];var m=document.getElementById(id);if(m)m.classList.add('open');});});
+$$('.legal-modal [data-close]').forEach(function(b){b.addEventListener('click',function(){b.closest('.legal-modal').classList.remove('open');});});
+$$('.legal-modal').forEach(function(m){m.addEventListener('click',function(e){if(e.target===m)m.classList.remove('open');});});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){$$('.legal-modal.open').forEach(function(m){m.classList.remove('open');});}});
+})();
 </script>
 </body>
 </html>
