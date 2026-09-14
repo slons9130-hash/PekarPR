@@ -14,6 +14,7 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
 html{scroll-behavior:smooth;overflow-x:hidden;-webkit-text-size-adjust:100%}
 body{font-family:var(--fb);background:var(--bg);color:var(--ink);overflow-x:hidden;line-height:1.6}
+body.lock{overflow:hidden}
 img{display:block;max-width:100%}
 ::selection{background:var(--acc);color:#fff}
 .grain{position:fixed;inset:0;pointer-events:none;z-index:60;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
@@ -43,6 +44,15 @@ img{display:block;max-width:100%}
 .nav ul{display:flex;gap:2rem;list-style:none}
 .nav ul a{color:var(--mut);text-decoration:none;font-size:.76rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;transition:color .3s}
 .nav ul a:hover{color:var(--acc2)}
+.burger{display:none;width:44px;height:44px;align-items:center;justify-content:center;flex-direction:column;gap:5px;border:2px solid var(--ink);border-radius:12px;background:var(--card);cursor:pointer}
+.burger i{display:block;width:20px;height:2px;background:var(--ink);transition:transform .3s var(--ease),opacity .3s}
+.burger.open i:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open i:nth-child(2){opacity:0}
+.burger.open i:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mnav{position:fixed;top:0;left:0;right:0;z-index:49;padding:5rem 1.4rem 2rem;background:rgba(247,241,230,.98);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:2px solid var(--ink);transform:translateY(-110%);transition:transform .5s var(--ease);display:none}
+.mnav.open{transform:translateY(0)}
+.mnav a{display:block;padding:1rem 0;border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;font-family:var(--fd);font-size:1.3rem}
+.mnav a:last-child{border-bottom:none}
 .wrap{max-width:1240px;margin:0 auto;position:relative;z-index:2}
 .hero{padding:clamp(7rem,14vh,10rem) clamp(1.2rem,4vw,4rem) 4rem;max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:clamp(2rem,5vw,5rem);align-items:center}
 .hero>div{position:relative;z-index:2}
@@ -61,7 +71,6 @@ h1 em{font-style:normal;color:var(--acc);display:block;font-size:.5em}
 .btn-out:hover,.btn-out:active{background:var(--ink);color:var(--bg)}
 .btn-ripple{position:absolute;border-radius:50%;background:rgba(200,139,58,.5);transform:scale(0);animation:btnRip .7s ease-out forwards;pointer-events:none}
 @keyframes btnRip{to{transform:scale(3);opacity:0}}
-/* ВЕЕР КАРТОЧЕК — все 3 видны на любом устройстве */
 .cards3d{position:relative;height:420px;perspective:1200px;will-change:transform}
 .post{position:absolute;width:62%;aspect-ratio:4/5;border-radius:18px;overflow:hidden;background:var(--card);border:2px solid var(--ink);box-shadow:0 24px 50px rgba(51,36,26,.25);will-change:transform;transform:rotate(var(--rot,0deg)) scale(var(--s,1));transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
 .post::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-20deg);transition:left .7s var(--ease);pointer-events:none}
@@ -159,8 +168,6 @@ footer{padding:2rem;text-align:center;color:var(--mut);font-size:.85rem;position
 .legal-modal-box h2{font-family:var(--fd);font-size:1.7rem;margin-bottom:1.2rem;color:var(--ink)}
 .legal-modal-box p{color:var(--mut);font-size:.9rem;line-height:1.8}
 .legal-close{margin-top:1.8rem}
-
-/* ============ МОБИЛКА: ВЕЕР ИЗ 3 КАРТОЧЕК ВИДЕН ЦЕЛИКОМ ============ */
 @media(max-width:960px){
   .hero{grid-template-columns:1fr;padding-top:6rem}
   .cards3d{height:360px;max-width:440px;margin:1.5rem auto 0}
@@ -172,6 +179,8 @@ footer{padding:2rem;text-align:center;color:var(--mut);font-size:.85rem;position
   .prod,.revs{grid-template-columns:repeat(2,1fr)}
   .about{grid-template-columns:1fr}
   .nav ul{display:none}
+  .burger{display:flex}
+  .mnav{display:block}
   .row{grid-template-columns:90px 1fr}
   .row span{grid-column:2}
 }
@@ -230,7 +239,7 @@ footer{padding:2rem;text-align:center;color:var(--mut);font-size:.85rem;position
 </div>
 
 <nav class="nav">
-<a class="logo" href="#">
+<a class="logo" href="#hero">
 <svg class="lg" viewBox="0 0 64 64" fill="none" stroke="url(#kgn)" stroke-linecap="round" stroke-linejoin="round">
 <defs><linearGradient id="kgn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c88b3a"/><stop offset="1" stop-color="#a45f2a"/></linearGradient></defs>
 <circle class="ko" cx="32" cy="32" r="29" stroke-width="1.4" stroke-dasharray="3 5"/>
@@ -248,9 +257,16 @@ footer{padding:2rem;text-align:center;color:var(--mut);font-size:.85rem;position
 <li><a href="#revs">Отзывы</a></li>
 <li><a href="#contact">Контакты</a></li>
 </ul>
+<button class="burger" id="burger" aria-label="меню" aria-expanded="false"><i></i><i></i><i></i></button>
 </nav>
+<div class="mnav" id="mnav">
+<a href="#prod">Выпечка</a>
+<a href="#sched">Свежее</a>
+<a href="#revs">Отзывы</a>
+<a href="#contact">Контакты</a>
+</div>
 
-<header class="hero">
+<header class="hero" id="hero">
 <div>
 <span class="eyebrow">хлеб на закваске · пекарня №1</span>
 <h1 class="rv"><span data-split>КОРКА</span><em>хрустит</em></h1>
@@ -388,12 +404,26 @@ function lsSet(k,v){if(!lsAvailable)return;try{localStorage.setItem(k,JSON.strin
 var fine=false,red=false;
 try{fine=matchMedia('(pointer:fine)').matches;red=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
 
-// БЫСТРАЯ ЗАГРУЗКА: прячем прелоадер как можно раньше
+// Прелоадер (быстро)
 var preHidden=false;
 function hidePre(){if(preHidden)return;preHidden=true;var p=$('#pre');if(p){p.classList.add('hide');setTimeout(function(){try{p.style.display='none'}catch(e){}},700);}}
 setTimeout(hidePre,900);
 window.addEventListener('load',function(){setTimeout(hidePre,150)});
 setTimeout(hidePre,2500);
+
+// БУРГЕР + МЕНЮ (шапка не пустая на мобилке)
+try{
+ var burger=$('#burger'),mnav=$('#mnav');
+ if(burger&&mnav){
+  burger.addEventListener('click',function(){
+   var open=mnav.classList.toggle('open');
+   burger.classList.toggle('open',open);
+   burger.setAttribute('aria-expanded',open?'true':'false');
+   document.body.classList.toggle('lock',open);
+  });
+  $$('#mnav a').forEach(function(a){a.addEventListener('click',function(){mnav.classList.remove('open');burger.classList.remove('open');burger.setAttribute('aria-expanded','false');document.body.classList.remove('lock');});});
+ }
+}catch(e){}
 
 // Split
 try{$$('[data-split]').forEach(function(el){var t=el.textContent;el.textContent='';Array.from(t).forEach(function(c,i){var s=document.createElement('span');s.className='ch';s.style.setProperty('--d',i);s.textContent=c===' '?'\u00A0':c;el.appendChild(s);});});}catch(e){}
@@ -422,33 +452,19 @@ try{
  loop();
 }catch(e){}})();
 
-// МОУШЕН НА КАЖДЫЙ КЛИК/ТАП И КАЖДУЮ ИЛЛЮСТРАЦИЮ (все устройства)
+// МОУШЕН на каждый клик/тап и каждую иллюстрацию
 try{
  var TAP='.post,.p,.rev,.row,.about-img,.btn';
  $$(TAP).forEach(function(el){
-  // тап/клик пульс + shine
   el.addEventListener('pointerdown',function(){
-   el.classList.add('touched');
-   el.style.setProperty('--s','1.05');
-   // ripple
-   try{
-    var r=el.getBoundingClientRect();
-    var rip=document.createElement('span');rip.className='btn-ripple';
-    var size=Math.max(r.width,r.height);
-    rip.style.width=rip.style.height=size+'px';
-    rip.style.left='0px';rip.style.top='0px';
-    rip.style.left='0';rip.style.top='0';
-    rip.style.width=size+'px';rip.style.height=size+'px';
-    el.appendChild(rip);setTimeout(function(){rip.remove()},700);
-   }catch(ex){}
+   el.classList.add('touched');el.style.setProperty('--s','1.05');
+   try{var r=el.getBoundingClientRect();var rip=document.createElement('span');rip.className='btn-ripple';var size=Math.max(r.width,r.height);rip.style.width=size+'px';rip.style.height=size+'px';rip.style.left='0';rip.style.top='0';el.appendChild(rip);setTimeout(function(){rip.remove()},700);}catch(ex){}
   },{passive:true});
-  ['pointerup','pointercancel','pointerleave'].forEach(function(ev){
-   el.addEventListener(ev,function(){setTimeout(function(){el.classList.remove('touched');el.style.setProperty('--s','');},260);},{passive:true});
-  });
+  ['pointerup','pointercancel','pointerleave'].forEach(function(ev){el.addEventListener(ev,function(){setTimeout(function(){el.classList.remove('touched');el.style.setProperty('--s','');},260);},{passive:true});});
  });
 }catch(e){}
 
-// Курсор (десктоп)
+// Курсор + tilt + magnetic (десктоп)
 try{
  if(fine&&!red){
   var ring=$('#ring'),dot=$('#dot');
@@ -459,12 +475,10 @@ try{
    (function cl(){try{rx+=(mx-rx)*.16;ry+=(my-ry)*.16;ring.style.transform='translate('+(rx-ring.offsetWidth/2)+'px,'+(ry-ring.offsetHeight/2)+'px)';dot.style.transform='translate('+(mx-2.5)+'px,'+(my-2.5)+'px)';var px=mx,py=my;tr.forEach(function(o){o.x+=(px-o.x)*.35;o.y+=(py-o.y)*.35;o.el.style.transform='translate('+(o.x-4)+'px,'+(o.y-4)+'px)';px=o.x;py=o.y;});}catch(e){}requestAnimationFrame(cl);})();
    $$('a,button,.post,.p,.rev,.row').forEach(function(el){el.addEventListener('mouseenter',function(){ring.classList.add('hov')});el.addEventListener('mouseleave',function(){ring.classList.remove('hov')});});
   }
-  // tilt десктоп
   $$('.post,.p,.rev').forEach(function(c){
-   c.addEventListener('mousemove',function(e){try{var r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;c.style.setProperty('--s','1');c.style.transform='perspective(900px) rotateX('+(-py*6)+'deg) rotateY('+(px*6)+'deg) translateY(-6px)';}catch(ex){}});
+   c.addEventListener('mousemove',function(e){try{var r=c.getBoundingClientRect(),px=(e.clientX-r.left)/r.width-.5,py=(e.clientY-r.top)/r.height-.5;c.style.transform='perspective(900px) rotateX('+(-py*6)+'deg) rotateY('+(px*6)+'deg) translateY(-6px)';}catch(ex){}});
    c.addEventListener('mouseleave',function(){c.style.transform='';});
   });
-  // magnetic
   $$('.btn').forEach(function(b){b.addEventListener('mousemove',function(e){try{var r=b.getBoundingClientRect();b.style.transform='translate('+((e.clientX-r.left-r.width/2)*.2)+'px,'+((e.clientY-r.top-r.height/2)*.28)+'px)';}catch(ex){}});b.addEventListener('mouseleave',function(){b.style.transform='';});});
  }
 }catch(e){}
@@ -489,7 +503,7 @@ try{
  $$('[data-legal]').forEach(function(el){el.addEventListener('click',function(e){try{e.preventDefault();var m=document.getElementById(lm[el.getAttribute('data-legal')]);if(m)m.classList.add('open');}catch(ex){}});});
  $$('.legal-modal [data-close]').forEach(function(b){b.addEventListener('click',function(){try{b.closest('.legal-modal').classList.remove('open')}catch(e){}});});
  $$('.legal-modal').forEach(function(m){m.addEventListener('click',function(e){try{if(e.target===m)m.classList.remove('open')}catch(ex){}});});
- document.addEventListener('keydown',function(e){try{if(e.key==='Escape')$$('.legal-modal.open').forEach(function(m){m.classList.remove('open')})}catch(ex){}});
+ document.addEventListener('keydown',function(e){try{if(e.key==='Escape'){$$('.legal-modal.open').forEach(function(m){m.classList.remove('open')});var mn=$('#mnav'),bg=$('#burger');if(mn&&mn.classList.contains('open')){mn.classList.remove('open');bg.classList.remove('open');document.body.classList.remove('lock');}}}catch(ex){}});
 }catch(e){}
 })();
 </script>
