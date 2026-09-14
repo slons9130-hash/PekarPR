@@ -168,8 +168,8 @@ footer{padding:2rem;text-align:center;color:var(--mut);font-size:.85rem;position
 .legal-close{margin-top:1.8rem}
 
 @media(max-width:960px){
-  .hero{grid-template-columns:1fr;padding-top:7rem}
-  .cards3d{height:360px;max-width:420px;margin:0 auto}
+  .hero{grid-template-columns:1fr;padding-top:6rem}
+  .cards3d{height:380px;max-width:420px;margin:0 auto}
   .prod,.revs{grid-template-columns:repeat(2,1fr)}
   .about{grid-template-columns:1fr}
   .nav ul{display:none}
@@ -191,12 +191,48 @@ footer{padding:2rem;text-align:center;color:var(--mut);font-size:.85rem;position
   .logo .lg{width:36px;height:36px}
 }
 @media(max-width:900px){.flo-art{display:none}}
+
+/* ИСПРАВЛЕНИЕ МОБИЛЬНОГО HERO */
 @media(max-width:768px){
   .ring,.dot,.trail{display:none !important}
   #dust{opacity:.35}
   .mband{transform:rotate(-2deg)}
-  .post:nth-child(1),.post:nth-child(2),.post:nth-child(3){transform:none}
+  
+  /* КРИТИЧНОЕ ИСПРАВЛЕНИЕ: карточки больше не абсолютно позиционированы */
+  .hero{padding-top:5rem !important}
+  .cards3d{
+    height:auto !important;
+    perspective:none !important;
+    display:flex !important;
+    flex-direction:column !important;
+    gap:1rem !important;
+    align-items:center !important;
+    margin-top:2rem !important;
+  }
+  .post{
+    position:relative !important;
+    width:85% !important;
+    max-width:320px !important;
+    left:auto !important;
+    top:auto !important;
+    transform:none !important;
+    margin:0 auto !important;
+  }
+  /* Скрываем 2-ю и 3-ю карточки на мобилке — показываем только главную */
+  .post:nth-child(2), .post:nth-child(3){
+    display:none !important;
+  }
+  .stamp{
+    right:10px !important;
+    bottom:-16px !important;
+    width:72px !important;
+    height:72px !important;
+  }
+  h1{font-size:clamp(2.5rem,8vw,4rem) !important}
+  .hero p{margin-top:1rem !important}
+  .cta-row{margin-top:1.5rem !important}
 }
+
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
   .pre{transition:none}
@@ -441,21 +477,17 @@ footer{padding:2rem;text-align:center;color:var(--mut);font-size:.85rem;position
 (function(){
 'use strict';
 
-// Безопасные хелперы
 var $=function(s){try{return document.querySelector(s)}catch(e){return null}};
 var $$=function(s){try{return Array.prototype.slice.call(document.querySelectorAll(s))}catch(e){return[]}};
 
-// Проверка доступности localStorage
 var lsAvailable=false;
 try{var t='__ls_test__';localStorage.setItem(t,t);localStorage.removeItem(t);lsAvailable=true}catch(e){}
 function lsGet(k){if(!lsAvailable)return null;try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}}
 function lsSet(k,v){if(!lsAvailable)return;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
 
-// Детекторы
 var fine=false,red=false;
 try{fine=matchMedia('(pointer:fine)').matches;red=matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){}
 
-// Гарантированное скрытие прелоадера
 function hidePreloader(){
   try{
     var p=$('#pre');
@@ -465,7 +497,6 @@ function hidePreloader(){
   }
 }
 
-// Split-анимация для заголовка
 try{
   $$('[data-split]').forEach(function(el){
     var t=el.textContent;el.textContent='';
@@ -478,7 +509,6 @@ try{
   });
 }catch(e){}
 
-// IntersectionObserver для reveal-анимаций
 try{
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){
@@ -486,7 +516,6 @@ try{
     },{threshold:.14});
     $$('.rv').forEach(function(el){io.observe(el)});
 
-    // Счётчики
     var co=new IntersectionObserver(function(es){
       es.forEach(function(e){
         if(e.isIntersecting){
@@ -505,7 +534,6 @@ try{
     },{threshold:.5});
     $$('[data-count]').forEach(function(el){co.observe(el)});
   }else{
-    // Fallback: показываем всё сразу
     $$('.rv').forEach(function(el){el.classList.add('in')});
     $$('[data-count]').forEach(function(el){el.textContent=el.dataset.count});
   }
@@ -513,7 +541,6 @@ try{
   $$('.rv').forEach(function(el){el.classList.add('in')});
 }
 
-// Мучная пыль (canvas) — безопасно
 (function(){
   try{
     var dc=$('#dust');
@@ -578,10 +605,9 @@ try{
       }catch(e){running=false}
     }
     loop();
-  }catch(e){/* canvas не работает, игнорим */}
+  }catch(e){}
 })();
 
-// Кастомный курсор — только на десктопе и только если всё ок
 try{
   if(fine&&!red){
     var ring=$('#ring'),dot=$('#dot');
@@ -618,7 +644,6 @@ try{
   }
 }catch(e){}
 
-// Magnetic-эффект для кнопок
 try{
   $$('.btn').forEach(function(b){
     b.addEventListener('mousemove',function(e){
@@ -631,7 +656,6 @@ try{
   });
 }catch(e){}
 
-// Tilt-эффект для карточек — только на десктопе
 try{
   if(fine){
     $$('.tilt').forEach(function(c){
@@ -648,7 +672,6 @@ try{
   }
 }catch(e){}
 
-// Плавный скролл по якорям
 try{
   $$('a[href^="#"]').forEach(function(a){
     a.addEventListener('click',function(e){
@@ -663,7 +686,6 @@ try{
   });
 }catch(e){}
 
-// ============ COOKIE CONSENT ============
 var COOKIE_KEY='korka_cookie_consent_v1';
 var cookieBar=$('#cookieBar'),cookieSettingsPanel=$('#cookieSettingsPanel'),toggleAnalytics=$('#toggleAnalytics');
 
@@ -707,7 +729,6 @@ try{
   });
 }catch(e){}
 
-// ============ LEGAL MODALS ============
 try{
   var legalMap={privacy:'modalPrivacy',terms:'modalTerms',cookies:'modalCookies',refund:'modalRefund'};
   $$('[data-legal]').forEach(function(el){
@@ -735,18 +756,14 @@ try{
   });
 }catch(e){}
 
-// ============ ГАРАНТИРОВАННОЕ ЗАПУСК ============
-// Скрываем прелоадер в любом случае, даже если всё JS упало
 setTimeout(hidePreloader,1400);
 setTimeout(maybeShowCookieBar,1600);
 
-// Если страница полностью загрузилась, а прелоадер ещё виден — форсируем скрытие
 window.addEventListener('load',function(){
   setTimeout(hidePreloader,300);
   setTimeout(maybeShowCookieBar,500);
 });
 
-// Экстренный fallback: если через 4 секунды прелоадер ещё висит — убираем его
 setTimeout(function(){
   var p=$('#pre');
   if(p&&!p.classList.contains('hide')){p.style.display='none';}
